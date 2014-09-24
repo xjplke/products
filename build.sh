@@ -86,6 +86,6 @@ done
 fi
 
 
-
+rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.1.0.spec
 
 
