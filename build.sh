@@ -32,7 +32,7 @@ go get -u github.com/xjplke/syler
 go get -u github.com/xjplke/ifdaa
 go get -u github.com/xjplke/smsadapter
 
-apps="aaa www portal protocal smsadapter nginxconf"
+apps="aaa www portal protocal smsadapter nginxconf supervisorconf"
 
 
 for app in $apps
@@ -67,6 +67,9 @@ cp smsadapter.conf ${APPROOT}/SOURCES/smsadapter/
 
 echo "copy nginxconf"
 cp -r ${APPROOT}/nginxconf ${APPROOT}/SOURCES/
+
+echo "copy supervisorconf"
+cp -r ${APPROOT}/supervisorconf ${APPROOT}/SOURCES/
 
 fi
 

@@ -11,6 +11,7 @@ SOURCE2:   www.tar.gz
 SOURCE3:   aaa.tar.gz
 SOURCE4:   smsadapter.tar.gz
 SOURCE5:   protocal.tar.gz
+SOURCE6:   supervisorconf.tar.gz
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Url:       http://www.adfi.cn/
@@ -34,6 +35,9 @@ tar -xf %{SOURCE0} -C $RPM_BUILD_ROOT%{userpath}
 tar -xf %{SOURCE1} -C $RPM_BUILD_ROOT%{userpath}
 tar -xf %{SOURCE2} -C $RPM_BUILD_ROOT%{userpath}
 tar -xf %{SOURCE3} -C $RPM_BUILD_ROOT%{userpath}
+tar -xf %{SOURCE4} -C $RPM_BUILD_ROOT%{userpath}
+tar -xf %{SOURCE5} -C $RPM_BUILD_ROOT%{userpath}
+tar -xf %{SOURCE6} -C $RPM_BUILD_ROOT%{userpath}
 
 %post
 #config mysql
@@ -46,12 +50,13 @@ echo "create database radius;" | mysql -uroot -p123qwe
 
 #config apps
 echo "config app"
-ln -s %{userpath}/bin/adfid /etc/init.d/
-chkconfig --levels 35 adfid on
-service adfid start
-mkdir %{userpath}/logs
-echo "wait for java app start!"
-sleep 10
+#ln -s %{userpath}/bin/adfid /etc/init.d/
+#chkconfig --levels 35 adfid on
+#service adfid start
+#mkdir %{userpath}/logs
+#echo "wait for java app start!"
+#sleep 10
+jarfile=`ls %{userpath}/aaa/adfi*.jar|head -1`;ln -s ${jarfile} %{userpath}/aaa/aaa.jar
 
 #config nginx
 echo "config nginx"
@@ -79,10 +84,10 @@ service radiusd start
 #install supervisor
 easy_install supervisor
 echo_supervisord_conf > /etc/supervisord.conf
-sed -i "s/^.*inet_http_server]\(.*\)$/[inet_http_server]\\1/g" /etc/supervisord.conf
+sed -i "s/^;\[inet_http_server\]\(.*\)$/\[inet_http_server\]\\1/g" /etc/supervisord.conf
 sed -i "s/^.*port=127.0.0.1:9001\(.*\)/port=0.0.0.0:9800\\1/g" /etc/supervisord.conf
-
-
+sed -i "s/^;\[include\]\(.*\)/\[include\]\\1/g" /etc/supervisord.conf
+sed -i "s/^;files.*$/files = %{userpath_ex}\/supervisorconf\/\*\.conf/g" /etc/supervisord.conf
 
 
 #chown -R tomcat %{userpath}/iOPAPPS/RadiusWeb
