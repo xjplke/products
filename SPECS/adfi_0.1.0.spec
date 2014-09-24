@@ -8,10 +8,11 @@ Requires:  mysql,mysql-devel,mysql-server,java-1.7.0-openjdk,freeradius,freeradi
 SOURCE0:   portal.tar.gz
 SOURCE1:   nginxconf.tar.gz
 SOURCE2:   www.tar.gz
-SOURCE3:   bin.tar.gz
+SOURCE3:   aaa.tar.gz
+SOURCE4:   smsadapter.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-Url:       http://www.linuxfly.org
-Packager:  Linuxing
+Url:       http://www.adfi.cn/
+Packager:  ShaoJunWu 
 Prefix:    %{_prefix}
 Prefix:    %{_sysconfdir}
 %define    userpath /usr/share/adfi
