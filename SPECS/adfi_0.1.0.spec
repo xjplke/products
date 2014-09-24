@@ -4,12 +4,14 @@ Version:   0.1.0
 Release:   1
 License:   GPL
 Group:     System
-Requires:  mysql,mysql-devel,mysql-server,java-1.7.0-openjdk,freeradius,freeradius-mysql,freeradius-utils,nginx,curl
+Requires:  python,python-setuptools,mysql,mysql-devel,mysql-server,java-1.7.0-openjdk,freeradius,freeradius-mysql,freeradius-utils,nginx,curl
 SOURCE0:   portal.tar.gz
 SOURCE1:   nginxconf.tar.gz
 SOURCE2:   www.tar.gz
 SOURCE3:   aaa.tar.gz
 SOURCE4:   smsadapter.tar.gz
+SOURCE5:   protocal.tar.gz
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Url:       http://www.adfi.cn/
 Packager:  ShaoJunWu 
@@ -73,7 +75,16 @@ mysql -uroot -p123qwe -Dradius < /etc/raddb/sql/mysql/wimax.sql
 chkconfig --levels 35 radiusd on
 service radiusd start
 
- 
+
+#install supervisor
+easy_install supervisor
+echo_supervisord_conf > /etc/supervisord.conf
+sed -i "s/^.*inet_http_server]\(.*\)$/[inet_http_server]\\1/g" /etc/supervisord.conf
+sed -i "s/^.*port=127.0.0.1:9001\(.*\)/port=0.0.0.0:9800\\1/g" /etc/supervisord.conf
+
+
+
+
 #chown -R tomcat %{userpath}/iOPAPPS/RadiusWeb
 #ln -s %{userpath}/iOPAPPS/RadiusWeb/ %{tomcatapppath}
 #mysql -uroot -p123qwe < %{tomcatapppath}RadiusWeb/backup/remote/mysql/radius.sql
