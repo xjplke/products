@@ -77,8 +77,8 @@ sed -i 's/^#.*sql$/\tsql/g' /etc/raddb/sites-enabled/default
 mysql -uroot -p123qwe -Dradius < /etc/raddb/sql/mysql/nas.sql
 mysql -uroot -p123qwe -Dradius < /etc/raddb/sql/mysql/schema.sql
 mysql -uroot -p123qwe -Dradius < /etc/raddb/sql/mysql/wimax.sql
-chkconfig --levels 35 radiusd on
-service radiusd start
+#chkconfig --levels 35 radiusd on
+#service radiusd start
 
 
 #install supervisor

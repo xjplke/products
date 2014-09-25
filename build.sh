@@ -27,8 +27,7 @@ do
 	[ -d $dir ] || mkdir $dir 
 done
 
-
-go get -u github.com/xjplke/syler
+go get -u github.com/extrame/syler
 go get -u github.com/xjplke/ifdaa
 go get -u github.com/xjplke/smsadapter
 
@@ -51,7 +50,7 @@ cp -r ${AAA_PATH}/src/main/webapp/* ${APPROOT}/SOURCES/www
 cp -r ${AAA_PATH}/src/main/portal/* ${APPROOT}/SOURCES/portal
 
 echo "build syler"
-SYLER_PATH=${GOPATH}/src/github.com/xjplke/syler
+SYLER_PATH=${GOPATH}/src/github.com/extrame/syler
 cd ${SYLER_PATH}
 go build
 cp syler ${APPROOT}/SOURCES/protocal/ 
@@ -83,9 +82,13 @@ do
 	tar -cjf ${dir}.tar.gz ${dir}
 done
 
+
+cd ${APPRPPT}
+rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.1.0.spec
+
 fi
 
 
-rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.1.0.spec
+
 
 
