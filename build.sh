@@ -76,14 +76,14 @@ fi
 if [ "$#" == "0" ] || [ "$1" == "rpm" ];then
 
 cd ${APPROOT}/SOURCES/
-for dir in `ls`
+for dir in `ls -F |grep "/$" | sed 's/\/$//g'`
 do
 	echo tar ${dir}
 	tar -cjf ${dir}.tar.gz ${dir}
 done
 
 
-cd ${APPRPPT}
+cd ${APPROOT}
 rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.1.0.spec
 
 fi
