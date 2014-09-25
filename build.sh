@@ -73,7 +73,7 @@ cp -r ${APPROOT}/supervisorconf ${APPROOT}/SOURCES/
 fi
 
 
-if [ "$#" == "0" ] || [ "$1" == "rpm" ];then
+if [ "$#" == "0" ] || [ "$1" == "tar" ];then
 
 cd ${APPROOT}/SOURCES/
 for dir in `ls -F |grep "/$" | sed 's/\/$//g'`
@@ -82,9 +82,13 @@ do
 	tar -cjf ${dir}.tar.gz ${dir}
 done
 
+fi
+
+
+if [ "$#" == "0" ] || [ "$1" == "rpm" ];then
 
 cd ${APPROOT}
-rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.1.0.spec
+rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.2.0.spec
 
 fi
 
