@@ -31,7 +31,7 @@ go get -u github.com/extrame/syler
 go get -u github.com/xjplke/ifdaa
 go get -u github.com/xjplke/smsadapter
 
-apps="aaa www portal protocal smsadapter nginxconf supervisorconf"
+apps="aaa www portal protocal smsadapter nginxconf supervisorconf vsftpdconf"
 
 
 for app in $apps
@@ -70,6 +70,9 @@ cp -r ${APPROOT}/nginxconf ${APPROOT}/SOURCES/
 echo "copy supervisorconf"
 cp -r ${APPROOT}/supervisorconf ${APPROOT}/SOURCES/
 
+echo "cp vsftpdconf"
+cp -r ${APPROOT}/vsftpdconf ${APPROOT}/SOURCES/
+
 fi
 
 
@@ -88,7 +91,7 @@ fi
 if [ "$#" == "0" ] || [ "$1" == "rpm" ];then
 
 cd ${APPROOT}
-rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.2.0.spec
+rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.3.0.spec
 
 fi
 
