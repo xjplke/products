@@ -91,11 +91,22 @@ fi
 if [ "$#" == "0" ] || [ "$1" == "rpm" ];then
 
 cd ${APPROOT}
-rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.3.1.spec
+rpmbuild --define "_topdir ${PWD}" -bb SPECS/adfi_0.3.6.spec
 
 fi
 
 
-
+if [ "$#" == "0" ] || [ "$1" == "pkg" ];then
+cd ${APPROOT}
+RPMPATH="./RPMS/x86_64/"
+rm -rf adfi 
+rm -rf adfi*.tar.gz
+mkdir adfi
+lastrpm=`ls -t $RPMPATH | grep adfi | head -1`
+echo $lastrpm
+cp ${RPMPATH}${lastrpm} ./adfi/
+cp install.sh ./adfi/
+tar -jcvf adfi_0.3.6_x86_64.tar.gz adfi
+fi
 
 
