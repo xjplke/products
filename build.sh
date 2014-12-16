@@ -106,6 +106,7 @@ lastrpm=`ls -t $RPMPATH | grep adfi | head -1`
 echo $lastrpm
 cp ${RPMPATH}${lastrpm} ./adfi/
 cp install.sh ./adfi/
+cp -r repos ./adfi/
 tar -jcvf adfi_0.3.6_x86_64.tar.gz adfi
 fi
 
